@@ -13,9 +13,9 @@ $config = [
         'tracker'     => 'http://'.$_SERVER['HTTP_HOST'],
         
         // network keys
-        'public_key'  => '',
+        'public_key'  => '86a4a2ade62e48461835d7faf7cf969f94ddca7a4ac5daf654aa',
         // required to add nodes
-        'private_key' => '',
+        'private_key' => '2c26dc4c7e108b77a453d5f0b874daf734ac20cfc68bdbf35311',
         
         'enabled' => true,
         'encrypted' => true
