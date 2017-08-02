@@ -1,0 +1,27 @@
+RewriteEngine On
+
+# hide files and folders with 404
+RedirectMatch 404 ^/\.c9
+RedirectMatch 404 ^/\.git
+RedirectMatch 404 ^/config
+RedirectMatch 404 ^/views
+RedirectMatch 404 ^/vendor
+RedirectMatch 404 ^/public/views
+RedirectMatch 404 ^/database.db
+RedirectMatch 404 ^/composer.lock
+RedirectMatch 404 ^/composer.json
+RedirectMatch 404 ^/.gitignore
+RedirectMatch 404 ^/README.md
+
+# rewrite to ./public/*
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^css/(.*)$ ./public/template/css/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^js/(.*)$ ./public/template/js/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^img/(.*)$ ./public/template/img/$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ ./public/$1 [L,QSA]
