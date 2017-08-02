@@ -10,12 +10,12 @@ $config = [
         'peer'  => 'http://'.$_SERVER['HTTP_HOST'],
         
         // tracker which seeds peers
-        'tracker'     => 'http://phive.free.lxd.systems',
+        'tracker'     => 'http://'.$_SERVER['HTTP_HOST'],
         
         // network keys
-        'public_key'  => '86a4a2ade62e48461835d7faf7cf969f94ddca7a4ac5daf654aa',
+        'public_key'  => '',
         // required to add nodes
-        'private_key' => '2c26dc4c7e108b77a453d5f0b874daf734ac20cfc68bdbf35311',
+        'private_key' => '',
         
         'enabled' => true,
         'encrypted' => true
