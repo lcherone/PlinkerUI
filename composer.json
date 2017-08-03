@@ -25,7 +25,10 @@
         "plinker/tasks": "dev-master",
         "gabordemooij/redbean": ">=4.2",
         "monolog/monolog": "^1.19",
-        "league/climate": "@dev"
+        "league/climate": "@dev",
+        "markstory/mini-asset": "^1.1",
+        "tedivm/jshrink": "^1.1",
+        "natxet/CssMin": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -33,6 +36,12 @@
         }
     },
     "scripts": {
-
+       "post-update-cmd": [
+            "bash ./plinkerui/bin/build.sh"
+        ],
+        "post-install-cmd": [
+            "bash ./plinkerui/bin/build.sh"
+        ],
+        "build" : "bash ./plinkerui/bin/build.sh"
     }
 }
