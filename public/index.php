@@ -3,7 +3,7 @@ require '../config.php';
 require '../vendor/autoload.php';
 
 /**
- * Initialize plinker .
+ * Plinker Server listener
  */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -28,14 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 /**
- * Public site section - very basic router and view loader. 
+ * Go App!
  */
-// start session
 session_start();
 
-$route = explode('/', (!empty($_GET['route']) ? $_GET['route'] : 'index'));
+// Functions
 
-// view loader
 function view($view = '', $data = null) {
     global $vars;
     
@@ -68,14 +66,16 @@ function alert($type = 'default', $body = '') {
     $_SESSION['alert'] = [$type, $body];
 }
 
-// handle template type
+// Working vars
+
+$route = explode('/', (!empty($_GET['route']) ? $_GET['route'] : 'index'));
+
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $template = './template/ajax.php';
 } else {
     $template = './template/main.php';
 }
 
-/* Working vars */
 $vars = [
     'js' => '',
     'css' => '',
@@ -84,15 +84,17 @@ $vars = [
     'db' => new \Plinker\Tasks\Model($config['database'])
 ]+$config;
 
-// basic router, which loads views and injects the result into template
+// Run route/pages and render into template
+
 echo file_exists('./pages/'.$vars['route']['view'].'.php') ? view(
-    $vars['template'],
+    $template,
     $vars+[
         'body' => view('./pages/'.$vars['route']['view'].'.php', $vars)
     ]
 ) : view(
-    $vars['template'],
+    $template,
     $vars+[
         'body' => view('./pages/not_found.php')
     ]
 );
+// Line 100!

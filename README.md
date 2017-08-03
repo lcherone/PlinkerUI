@@ -11,7 +11,7 @@ Features:
 **What does it do?**
 So it has many uses for a range of things.
 
- - Its very speedy! Instant and live updates though RPC, no need to poll server or when not in use.
+ - It's very speedy! Instant and live updates through RPC, no need to poll the server when not in use.
  - Ive chosen to write it with a "no-framework" structure to allow people to understand it more.
  - Ive chosen to not apply a fancy theme, to keep assets and HTML less cluttered.
 
