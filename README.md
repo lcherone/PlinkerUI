@@ -10,9 +10,9 @@ Features:
 
 **What does it do?**
 
- - You can write bite-sized maintenance task directly on target nodes with just PHP or Bash scripting executed instantly or on per-second intervals as root user.
+ - You can write bite-sized maintenance tasks in PHP or Bash directly on your target systems which can be executed instantly or on per-second intervals as root user.
  - Create, delete and edit files inside `/var/www/html`.
- - It's very speedy! Instant and live updates through RPC, no need to poll the server when not in use.
+ - It's very speedy! Instant and live updates through RPC.
  - Ive chosen to write it with a "no-framework" structure to allow people to understand it more.
  - Ive chosen to not apply a fancy theme, to keep assets and HTML less cluttered.
 
