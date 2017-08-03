@@ -20,9 +20,6 @@ $config = [
         'enabled' => true,
         'encrypted' => true
     ],
-
-    // displays output to consoles
-    'debug' => true,
     
     // database connection
     'database' => [
@@ -32,7 +29,10 @@ $config = [
         'freeze' => false,
         'debug' => false
     ],
-    
+
+    // displays output to consoles
+    'debug' => true,
+
     // daemon sleep time
     'sleep_time' => 5,
 

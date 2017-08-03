@@ -3,6 +3,13 @@ require '../config.php';
 require '../vendor/autoload.php';
 
 /**
+ * Check ./tmp folder is there
+ */
+if (!file_exists('../tmp')) {
+    mkdir('../tmp');
+}
+
+/**
  * Plinker Server listener
  */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -15,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         isset($_POST['public_key'])) {
 
         // test its encrypted
-        file_put_contents('./encryption-proof.txt', print_r($_POST, true));
+        file_put_contents('../tmp/encryption-proof.txt', print_r($_POST, true));
 
         //
         $server = new Plinker\Core\Server(

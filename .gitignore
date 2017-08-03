@@ -3,3 +3,4 @@ vendor/
 composer.lock
 database.db
 public/template/dist/*
+tmp/
