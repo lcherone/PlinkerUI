@@ -10,6 +10,7 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true
@@ -30,10 +31,6 @@
         "psr-4": {
             "Tasks\\": "tasks"
         }
-    },
-    "prefer-stable": true,
-    "config": {
-
     },
     "scripts": {
 
