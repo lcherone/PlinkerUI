@@ -72,7 +72,8 @@ if (!empty($node)): ?>
 <?php if (!file_exists('../tasks/pids/Daemon.pid')): ?>
 <div class="alert alert-info">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <code class="code">* * * * * cd /var/www/html/tasks && /usr/bin/php /var/www/html/tasks/run.php >/dev/null 2>&1</code>
+    It appers the task runner is not currently running, <a href="/tasks/view/<?= (int) $vars['route']['id'] ?>" class="ajax-link alert-link">click here to reload</a>. If the problem persists, check you have applyed the following crontask.<br>
+    <code class="code">* * * * * cd <?= realpath(getcwd().'/../tasks') ?> && /usr/bin/php <?= realpath(getcwd().'/../tasks') ?>/run.php >/dev/null 2>&1</code>
 </div>
 <?php endif ?>
 
