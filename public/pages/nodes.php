@@ -26,10 +26,13 @@ elseif($vars['route']['action'] == 'file') {
 $nodes = $vars['db']->findAll('node');
 
 if (empty($nodes)) {
+    // fall back to self if peer not set
+    $vars['plinker']['peer'] = (!empty($vars['plinker']['peer']) ? $vars['plinker']['peer'] : $_SERVER['HTTP_HOST']);
+    
     $vars['db']->findOrCreate([
         'node',
         'name' => $_SERVER['HTTP_HOST'],
-        'peer' => $vars['plinker']['peer'],
+        'peer' => 'http://'.$_SERVER['HTTP_HOST'],
         'public_key' => $vars['plinker']['public_key'],
         'private_key' => $vars['plinker']['private_key'],
         'enabled' => $vars['plinker']['enabled'],

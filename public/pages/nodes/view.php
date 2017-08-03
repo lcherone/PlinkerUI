@@ -22,10 +22,14 @@ $tasks = new Plinker\Core\Client(
 $system = new \Plinker\System\System();
 
 $function = function ($params = []) use ($system) {
-    // expected dependencies, imported from use above
+    // system component, inherited from use above
     // $system = new \Plinker\System\System();
 
     $return = [];
+    
+    // move into tmp folder so files are written there
+    $cwd = getcwd();
+    chdir('../tmp');
 
     if ($params[0] == 'system_updates') {   $return[@$params[0]] = $system->system_updates(); }
     if ($params[0] == 'disk_space') {       $return[@$params[0]] = $system->disk_space([@$params[1]]); }
@@ -51,6 +55,9 @@ $function = function ($params = []) use ($system) {
     if ($params[0] == 'clear_swap') {       $return[@$params[0]] = $system->clear_swap(); }
     if ($params[0] == 'reboot') {           $return[@$params[0]] = $system->reboot(); }
     if ($params[0] == 'check_updates') {    $return[@$params[0]] = $system->check_updates(); }
+    
+    // move back
+    chdir($cwd);
 
     return json_encode($return);
 };

@@ -109,9 +109,9 @@ namespace Tasks\Task {
                             $task->result = ob_get_clean();
                             
                         } elseif ($task->tasksource->type == 'bash') {
-                            file_put_contents('./'.md5($task->tasksource->name).'.sh', $task->tasksource->source);
+                            file_put_contents('../tmp/'.md5($task->tasksource->name).'.sh', $task->tasksource->source);
                             ob_start();
-                            echo shell_exec('/bin/bash ./'.md5($task->tasksource->name).'.sh');
+                            echo shell_exec('/bin/bash ../tmp/'.md5($task->tasksource->name).'.sh');
                             $task->result = ob_get_clean();
                         }
 
@@ -129,31 +129,31 @@ namespace Tasks\Task {
             }
         }
         
-        /**
-         * Get system info
-         */
-        private function info($task)
-        {
-            $task->started = date_create()->format('Y-m-d H:i:s');
+        // /**
+        //  * Get system info
+        //  */
+        // private function info($task)
+        // {
+        //     $task->started = date_create()->format('Y-m-d H:i:s');
             
-            // has parameters
-            $params = [];
-            if (!empty($task->params)) {
-                $params = json_decode($task->params, true);
-            }
+        //     // has parameters
+        //     $params = [];
+        //     if (!empty($task->params)) {
+        //         $params = json_decode($task->params, true);
+        //     }
             
-            $system = new \Plinker\System\System();
+        //     $system = new \Plinker\System\System();
 
-            $task->result = json_encode([
-                'diskspace' => $system->get_disk_space(['/']),
-                'total_diskspace' => $system->get_total_disk_space(['/']),
-                'memory' => $system->get_memory_stats()
-            ]);
+        //     $task->result = json_encode([
+        //         'diskspace' => $system->get_disk_space(['/']),
+        //         'total_diskspace' => $system->get_total_disk_space(['/']),
+        //         'memory' => $system->get_memory_stats()
+        //     ]);
 
-            $task->completed = date_create()->format('Y-m-d H:i:s');
+        //     $task->completed = date_create()->format('Y-m-d H:i:s');
 
-            return $task;
-        }
+        //     return $task;
+        // }
 
     }
 
