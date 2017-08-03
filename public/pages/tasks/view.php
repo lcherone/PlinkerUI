@@ -19,89 +19,7 @@ if (!empty($_SESSION['node'])) {
     $taskslogs  =  $vars['db']->findAll('tasks', 'tasksource_id = ? ORDER BY id DESC', [(int) $vars['route']['id']]);
 }
 
-/**
- * Javascript
- */
-ob_start() ?>
-<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var textarea = $('textarea[name="source"]').hide();
-            var editor = ace.edit("source");
-            editor.getSession().setUseWorker(false);
-            editor.setTheme("ace/theme/eclipse");
-            editor.getSession().setMode("ace/mode/php");
-
-            editor.getSession().setValue(textarea.val());
-            editor.getSession().on('change', function() {
-                textarea.val(editor.getSession().getValue());
-            });
-            
-            editor.setReadOnly(true);
-            editor.setOptions({
-                minLines: 10,
-                maxLines: Infinity
-            });
-            editor.renderer.setShowGutter(false);
-            editor.setShowPrintMargin(false);
-            editor.setHighlightActiveLine(false);
-
-        $.fn.editable.defaults.mode = 'inline';
-        
-        $('.editable-input').editable({
-            showbuttons: false,
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(response, newValue) {
-                if (!response) {
-                    return "Unknown error!";
-                }          
-                
-                if (response.success === false) {
-                     return response.msg;
-                }
-            }      
-        });
-        
-        $('.repeats-select').editable({
-            // prepend: "not selected",
-            source: [
-                {value: '0', text: 'No'},
-                {value: '1', text: 'Yes'}
-            ],
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(response, newValue) {
-                if (!response) {
-                    return "Unknown error!";
-                }          
-                
-                if (response.success === false) {
-                     return response.msg;
-                }
-            }      
-        });
-        
-        $("tr[class^='result-']").hide();
-        $('.toggle-result').on('click', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            
-            $('.result-'+id).toggle();
-        });
-        
-       
-        load.script('/js/module/tasks.js', function() {
-            nodes.init();
-        });
-    });
-</script>
-<?php $vars['js'] .= ob_get_clean() ?>
-
-<?php if (!empty($node)): ?>
+if (!empty($node)): ?>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
@@ -273,3 +191,17 @@ ob_start() ?>
         </div>
     </div>
 </div>
+
+<?php
+/**
+ * Javascript
+ */
+ob_start() ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        load.script('/dist/module.tasks.min.js', function() {
+            tasks.view();
+        });
+    });
+</script>
+<?php $vars['js'] .= ob_get_clean() ?>
