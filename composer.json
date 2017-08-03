@@ -42,7 +42,8 @@
         ],
         "post-install-cmd": [
             "bash ./bin/minify_assets.sh",
-            "bash ./bin/fix_permissions.sh"
+            "bash ./bin/fix_permissions.sh",
+            "composer update -d ./plinkerui/"
         ],
         "setup": "bash ./bin/setup.sh",
         "build": "bash ./bin/minify_assets.sh"
