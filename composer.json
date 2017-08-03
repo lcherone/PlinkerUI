@@ -26,9 +26,9 @@
         "gabordemooij/redbean": ">=4.2",
         "monolog/monolog": "^1.19",
         "league/climate": "@dev",
-        "markstory/mini-asset": "^1.1",
-        "tedivm/jshrink": "^1.1",
         "natxet/CssMin": "^3.0"
+        "markstory/mini-asset": "^1.1",
+        "tedivm/jshrink": "^1.1"
     },
     "autoload": {
         "psr-4": {
