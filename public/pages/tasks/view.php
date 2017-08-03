@@ -152,9 +152,8 @@ ob_start() ?>
 <?php unset($_SESSION['alert']); endif ?>
 
 <?php if (!file_exists('../tasks/pids/Daemon.pid')): ?>
-<div class="alert alert-warning">
+<div class="alert alert-info">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    It appears the task agent is not currently running. <a href="./<?= $tasksource->id ?>">Click here to reload</a>, if this message persists check cron task is correctly configured and that no tasks are breaking it.<br>
     <code class="code">* * * * * cd /var/www/html/tasks && /usr/bin/php /var/www/html/tasks/run.php >/dev/null 2>&1</code>
 </div>
 <?php endif ?>
