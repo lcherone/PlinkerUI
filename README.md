@@ -1,4 +1,4 @@
-PlinkerUI! - Remote coded tasks run as root!
+PlinkerUI! - Remotely coded tasks, run as root!
 ===================
 
 **About:**
@@ -10,10 +10,10 @@ A little PHP script which is a demonstration usage for [Plinker PHP RPC client/s
  - You can write bite-sized maintenance tasks in PHP or Bash directly on your target systems which can be executed instantly or on per-second intervals.
  - Create, delete and edit target systems files inside `/var/www/html`.
  - It's very speedy! Instant and live updates through RPC.
- - Ive chosen to write it with a "no-framework" style for easy digestion.
- - Ive chosen to not apply a fancy theme, to keep assets and HTML less cluttered.
+ - I've chosen to write it with a "no-framework" style for easy digestion.
+ - I've chosen good'old [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/) theme as to keep assets and HTML minimal cluttered.
 
-::Install::
+::Install with Composer::
 ---------
 
 `composer create-project lcherone/plinkerui`
