@@ -37,10 +37,12 @@
     },
     "scripts": {
        "post-update-cmd": [
-            "bash ./bin/minify_assets.sh"
+            "bash ./bin/minify_assets.sh",
+            "bash ./bin/fix_permissions.sh"
         ],
         "post-install-cmd": [
-            "bash ./bin/minify_assets.sh"
+            "bash ./bin/minify_assets.sh",
+            "bash ./bin/fix_permissions.sh"
         ],
         "build" : "bash ./bin/minify_assets.sh"
     }

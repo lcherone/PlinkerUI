@@ -7,10 +7,10 @@ $config = [
     // plinker configuration
     'plinker' => [
         // self should point to this instance
-        'peer'  => 'http://'.$_SERVER['HTTP_HOST'],
+        'peer' => 'http://'.$_SERVER['HTTP_HOST'],
         
         // tracker which seeds peers
-        'tracker'     => 'http://'.$_SERVER['HTTP_HOST'],
+        'tracker' => 'http://'.$_SERVER['HTTP_HOST'],
         
         // network keys
         'public_key'  => '',
