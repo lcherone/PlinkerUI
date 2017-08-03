@@ -34,6 +34,7 @@ Nodes are any instances of the script, or at least Plinker [`plinker/core`](http
 ![Section - Nodes Files](https://cherone.co.uk/files/screens/plinkerui/node.files.png)
 ![Section - Nodes Files](https://cherone.co.uk/files/screens/plinkerui/node.information.png)
 
+----------
 
 ::Tasks::
 -----
@@ -48,10 +49,12 @@ Configure bite-sized maintenance task directly on target nodes with simple PHP o
 ![Section - Task](https://cherone.co.uk/files/screens/plinkerui/task.png)
 ![Section - Edit](https://cherone.co.uk/files/screens/plinkerui/task.edit.png)
 
+----------
+
 
 ::Develop (master branch)::
 ---------
 
-Install with `.gits/`
+Install `master` branch with `.gits/`
 
 `composer create-project lcherone/plinkerui --stability dev`
