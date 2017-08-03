@@ -12,7 +12,7 @@ body {
     background-color: #222;
 }
 
-@media(min-width:768px) {
+@media (min-width:768px) {
     body {
         margin-top: 50px;
     }
@@ -186,7 +186,7 @@ pre {
     overflow: auto;
 }
 
-@media(min-width:768px) {
+@media (min-width:768px) {
     #wrapper {
         padding-left: 225px;
     }
@@ -273,7 +273,7 @@ ul.alert-dropdown {
 
 /* Side Navigation */
 
-@media(min-width:768px) {
+@media (min-width:768px) {
     .side-nav {
         position: fixed;
         top: 51px;
