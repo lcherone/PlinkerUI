@@ -1,12 +1,9 @@
-PlinkerUI!
+PlinkerUI! - Remote coded tasks run as root!
 ===================
 
-A little PHP script which is a demonstration usage for Plinker - Remote coded tasks run as root! 
+**About:**
 
-----------
-
-Features:
----------
+A little PHP script which is a demonstration usage for [Plinker PHP RPC client/server](https://bitbucket.org/plinker/example).
 
 **What does it do?**
 
@@ -16,25 +13,29 @@ Features:
  - Ive chosen to write it with a "no-framework" style for easy digestion.
  - Ive chosen to not apply a fancy theme, to keep assets and HTML less cluttered.
 
-Nodes
+::Install::
+---------
+
+`composer create-project lcherone/plinkerui --stability dev`
+
+----------
+
+
+::Nodes::
 -----
 
-Nodes are any instances of the script, or at least the Plinker `plinker/core`, `plinker/tasks`, `plinker/system` components installed in your project code using composer.
+Nodes are any instances of the script, or at least the Plinkers [`plinker/core`](https://bitbucket.org/plinker/core), [`plinker/tasks`](https://bitbucket.org/plinker/tasks), [`plinker/system`](https://bitbucket.org/plinker/system) components installed in your project code using composer.
 
 **Screens**
 
 ![Section - Nodes](https://cherone.co.uk/files/screens/plinkerui/nodes.png)
-
 ![Section - Nodes Edit](https://cherone.co.uk/files/screens/plinkerui/node.edit.png)
-
-----------
-
 ![Section - Nodes Files](https://cherone.co.uk/files/screens/plinkerui/node.tasks.png)
 ![Section - Nodes Files](https://cherone.co.uk/files/screens/plinkerui/node.files.png)
 ![Section - Nodes Files](https://cherone.co.uk/files/screens/plinkerui/node.information.png)
 
 
-Tasks
+::Tasks::
 -----
 
 Configure bite-sized maintenance task directly on target nodes with simple PHP or Bash scripting. 
@@ -44,7 +45,5 @@ Configure bite-sized maintenance task directly on target nodes with simple PHP o
 **Screens**
 
 ![Section - Tasks](https://cherone.co.uk/files/screens/plinkerui/tasks.png)
-
 ![Section - Task](https://cherone.co.uk/files/screens/plinkerui/task.png)
-
 ![Section - Edit](https://cherone.co.uk/files/screens/plinkerui/task.edit.png)
