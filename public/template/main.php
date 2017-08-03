@@ -7,12 +7,12 @@
         <meta name="description" content="">
         <meta name="author" content="Lawrence Cherone">
 
-        <title>PlinkerUI - v0.0.1
-        <?php if ($vars['route']['view'] == 'index'): ?>- Dashboard<?php endif ?>
-        <?php if ($vars['route']['view'] == 'tasks'): ?>- Tasks<?php endif ?>
-        <?php if ($vars['route']['view'] == 'nodes'): ?>- Nodes<?php endif ?>
-        <?php if ($vars['route']['view'] == 'settings'): ?>- Settings<?php endif ?>
-        </title>
+        <title>PlinkerUI<?php 
+            if ($vars['route']['view'] == 'index'): ?> - Dashboard<?php endif;
+            if ($vars['route']['view'] == 'tasks'): ?> - Tasks<?php endif;
+            if ($vars['route']['view'] == 'nodes'): ?> - Nodes<?php endif;
+            if ($vars['route']['view'] == 'settings'): ?> - Settings<?php endif;
+        ?></title>
 
         <link rel="stylesheet" href="/dist/vendors.min.css">
         <link rel="stylesheet" href="/dist/styles.min.css">
@@ -21,10 +21,7 @@
     <body>
 
         <div id="wrapper">
-    
-            <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -32,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/" class="ajax-link">PlinkerUI - v0.0.1</a>
+                    <a class="navbar-brand" href="/" class="ajax-link">PlinkerUI</a>
                 </div>
                 <!-- Top Menu Items -->
                 <!--<ul class="nav navbar-right top-nav">-->
@@ -104,23 +101,17 @@
                         <!--</li>-->
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
             </nav>
     
             <div id="page-wrapper">
-    
                 <div class="container-fluid ajax-container">
                     <?= $vars['body'] ?>
                 </div>
-                <!-- /.container-fluid -->
-    
             </div>
-            <!-- /#page-wrapper -->
-    
         </div>
-        <!-- /#wrapper -->
 
         <script src="/dist/vendors.min.js"></script>
+        <script src="https://ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"></script>
         <script src="/dist/app.min.js"></script>
        
         <?= $vars['js'] ?>
