@@ -44,6 +44,7 @@
             "bash ./bin/minify_assets.sh",
             "bash ./bin/fix_permissions.sh"
         ],
-        "build" : "bash ./bin/minify_assets.sh"
+        "setup": "bash ./bin/setup.sh",
+        "build": "bash ./bin/minify_assets.sh"
     }
 }
