@@ -1,7 +1,18 @@
 {
+    "name": "lcherone/plinkerui",
+    "description": "A little PHP script which is a demonstration usage for Plinker - Remote coded tasks run as root!",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lawrence Cherone",
+            "role": "Developer"
+        }
+    ],
     "minimum-stability": "dev",
     "config": {
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "sort-packages": true
     },
     "require": {
         "plinker/core": ">=v0.1",
@@ -19,5 +30,12 @@
         "psr-4": {
             "Tasks\\": "tasks"
         }
+    },
+    "prefer-stable": true,
+    "config": {
+
+    },
+    "scripts": {
+
     }
 }
