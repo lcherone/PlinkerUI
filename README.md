@@ -11,7 +11,7 @@ A little PHP script which is a demonstration usage for [Plinker PHP RPC client/s
  - Create, delete and edit target systems files inside `/var/www/html`.
  - It's very speedy! Instant and live updates through RPC.
  - I've chosen to write it with a "no-framework" style for easy digestion.
- - I've chosen good'old [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/) theme as to keep assets and HTML minimal.
+ - I've chosen good'old [SB Admin](https://startbootstrap.com/template-overviews/sb-admin/) with [Bootswatch (yeti)](https://bootswatch.com/yeti/) theme as to keep assets and HTML minimal.
 
 ::Install with Composer::
 ---------
