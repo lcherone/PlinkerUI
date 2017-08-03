@@ -16,7 +16,7 @@ A little PHP script which is a demonstration usage for [Plinker PHP RPC client/s
 ::Install::
 ---------
 
-`composer create-project lcherone/plinkerui --stability dev`
+`composer create-project lcherone/plinkerui`
 
 ----------
 
@@ -24,7 +24,7 @@ A little PHP script which is a demonstration usage for [Plinker PHP RPC client/s
 ::Nodes::
 -----
 
-Nodes are any instances of the script, or at least the Plinkers [`plinker/core`](https://bitbucket.org/plinker/core), [`plinker/tasks`](https://bitbucket.org/plinker/tasks), [`plinker/system`](https://bitbucket.org/plinker/system) components installed in your project code using composer.
+Nodes are any instances of the script, or at least Plinker [`plinker/core`](https://bitbucket.org/plinker/core), [`plinker/tasks`](https://bitbucket.org/plinker/tasks), [`plinker/system`](https://bitbucket.org/plinker/system) components installed in your project.
 
 **Screens**
 
@@ -47,3 +47,11 @@ Configure bite-sized maintenance task directly on target nodes with simple PHP o
 ![Section - Tasks](https://cherone.co.uk/files/screens/plinkerui/tasks.png)
 ![Section - Task](https://cherone.co.uk/files/screens/plinkerui/task.png)
 ![Section - Edit](https://cherone.co.uk/files/screens/plinkerui/task.edit.png)
+
+
+::Develop (master branch)::
+---------
+
+Install with `.gits/`
+
+`composer create-project lcherone/plinkerui --stability dev`
