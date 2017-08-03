@@ -37,11 +37,11 @@
     },
     "scripts": {
        "post-update-cmd": [
-            "bash ./plinkerui/bin/build.sh"
+            "bash ./bin/minify_assets.sh"
         ],
         "post-install-cmd": [
-            "bash ./plinkerui/bin/build.sh"
+            "bash ./bin/minify_assets.sh"
         ],
-        "build" : "bash ./plinkerui/bin/build.sh"
+        "build" : "bash ./bin/minify_assets.sh"
     }
 }

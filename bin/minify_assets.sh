@@ -12,14 +12,7 @@ if test -f /usr/bin/php; then phppath='/usr/bin/php'; fi
 echo -e "${GREEN}Building Javascript and CSS assets${COLOR_OFF}"
 
 echo -e "${CYAN}---> Clearing asset cache${COLOR_OFF}"
-$phppath ./vendor/bin/mini_asset clear --config ./app/assets.ini
+$phppath ./vendor/bin/mini_asset clear --config ./public/template/assets.ini
 
 echo -e "${CYAN}---> Building main ./app/assets.ini ${COLOR_OFF}"
-$phppath ./vendor/bin/mini_asset build --config ./app/assets.ini
-
-#FILES=$(find ./app/modules/* -type f -name '*.ini')
-#for f in $FILES
-#do
-#  echo -e "${CYAN}---> Building module:${COLOR_OFF} $phppath ./vendor/bin/mini_asset build --config $f"
-#  $phppath ./vendor/bin/mini_asset build --config $f
-#done
+$phppath ./vendor/bin/mini_asset build --config ./public/template/assets.ini
