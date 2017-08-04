@@ -21,8 +21,6 @@ $form = [
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-
-    
     // // type
     // if (!in_array($form['values']['type'], ['php-closure', 'php-raw', 'bash'])) {
     //     $form['errors']['type'] = 'Invalid task source type, choose from the list.';

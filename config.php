@@ -7,26 +7,27 @@ $config = [
     // plinker configuration
     'plinker' => [
         // self should point to this instance
-        'peer' => '',
+        'peer' => 'http://phive.free.lxd.systems',
         
         // tracker which seeds peers
-        'tracker' => '',
+        'tracker' => 'http://phive.free.lxd.systems',
         
         // network keys
-        'public_key'  => '',
+        'public_key'  => 'xxxdd',
         // required to add nodes
-        'private_key' => '',
+        'private_key' => 'xxxccccccc',
         
         'enabled' => true,
         'encrypted' => true
     ],
     
     // database connection
+    // default: sqlite:'.__DIR__.'/database.db
     'database' => [
-        'dsn' => 'sqlite:'.__DIR__.'/database.db',
-        'username' => '',
-        'password' => '',
-        'freeze' => false,
+        'dsn' => 'sqlite:/var/www/html/plinkerui/database.db',
+        'username' => 'x',
+        'password' => 'x',
+        'freeze' => true,
         'debug' => false
     ],
 
@@ -38,7 +39,7 @@ $config = [
 
     // webui login
     'webui' => [
-        'user' => 'admin',
+        'user' => 'adminjjj\'hh',
         'pass' => 'admin'
     ]
 ];
