@@ -27,7 +27,7 @@ $config = [
         'dsn' => 'sqlite:/var/www/html/plinkerui/database.db',
         'username' => 'x',
         'password' => 'x',
-        'freeze' => true,
+        'freeze' => false,
         'debug' => false
     ],
 
