@@ -193,9 +193,7 @@ if (\$config['debug'] === true) {
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" method="post">
-                    
-                    <pre><?= print_r($form, true) ?></pre>
-                    
+
                     <h4>User</h4>
                     <hr>
                     

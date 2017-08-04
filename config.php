@@ -13,9 +13,9 @@ $config = [
         'tracker' => 'http://phive.free.lxd.systems',
         
         // network keys
-        'public_key'  => 'xxxdd',
+        'public_key'  => 'xxxxxxxxxxxxxxxxxxxxxx',
         // required to add nodes
-        'private_key' => 'xxxccccccc',
+        'private_key' => 'xxxxxxxxxxxxxxxxxxxxxx',
         
         'enabled' => true,
         'encrypted' => true
@@ -39,7 +39,7 @@ $config = [
 
     // webui login
     'webui' => [
-        'user' => 'adminjjj\'hh',
+        'user' => 'admin',
         'pass' => 'admin'
     ]
 ];
