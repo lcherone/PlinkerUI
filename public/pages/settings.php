@@ -147,6 +147,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ]
 ];
 
+//
+date_default_timezone_set('Europe/London');
+
 // define debug error reporting/output
 if (\$config['debug'] === true) {
     error_reporting(E_ALL);

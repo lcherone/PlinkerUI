@@ -46,6 +46,9 @@ if (!file_exists('../config.php')) {
     ]
 ];
 
+//
+date_default_timezone_set('Europe/London');
+
 // define debug error reporting/output
 if (\$config['debug'] === true) {
     error_reporting(E_ALL);
