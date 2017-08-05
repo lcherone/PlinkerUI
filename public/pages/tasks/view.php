@@ -103,7 +103,6 @@ if (!empty($node)): ?>
                             if ($col == 'params') {
                                 $col = 'Parameters';
                             }
-                            
                             ?>
                             <tr>
                                 <td class="col-md-2"><?= ucfirst($col) ?></td>
@@ -158,16 +157,16 @@ if (!empty($node)): ?>
                             ?>
                             <tr>
                                 <td><?= $row->id ?></td>
-                                <td><?= $row->name ?></td>
+                                <td><?= htmlentities($row->name) ?></td>
                                 <td><?= $params ?></td>
                                 <td><a href="#" class="repeats-select" data-type="select" data-pk="<?= $row->id ?>" data-name="repeats" data-value="<?= $row->repeats ?>" data-url="/tasks/inline_update/queue/<?= $row->id ?>" data-title="Set sleep time in seconds."></a></td>
                                 <td>
                                     <a href="#" class="editable-input" data-type="text" data-pk="<?= $row->id ?>" data-name="sleep" data-value="<?= $row->sleep ?>" data-url="/tasks/inline_update/queue/<?= $row->id ?>" data-title="Set sleep time in seconds."></a>
                                 </td>
-                                <td><?= $row->run_count ?></td>
-                                <td><?= $row->run_last ?></td>
-                                <td><?= (empty($row->run_next) ? '-' : $row->run_next) ?></td>
-                                <td><?= $row->completed ?></td>
+                                <td><?= (int) $row->run_count ?></td>
+                                <td><?= (empty($row->run_last) ? '-' : date_create($row->run_last)->format('F jS Y, g:ia')) ?></td>
+                                <td><?= (empty($row->run_next) ? '-' : date_create($row->run_next)->format('F jS Y, g:ia')) ?></td>
+                                <td><?= (empty($row->completed) ? '-' : date_create($row->completed)->format('F jS Y, g:ia')) ?></td>
                                 <td>
                                     <div class="btn-group btn-group-xs" style="display:flex">
                                         <a href="#" class="btn btn-info toggle-result" data-id="<?= $row->id ?>"><i class="fa fa-eye"></i></a>

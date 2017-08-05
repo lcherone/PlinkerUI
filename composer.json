@@ -28,7 +28,8 @@
         "league/climate": "@dev",
         "natxet/CssMin": "^3.0",
         "markstory/mini-asset": "^1.1",
-        "tedivm/jshrink": "^1.1"
+        "tedivm/jshrink": "^1.1",
+        "brandonwamboldt/utilphp": "1.0.*"
     },
     "autoload": {
         "psr-4": {

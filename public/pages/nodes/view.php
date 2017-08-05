@@ -76,10 +76,10 @@ try {
     );
 } catch (\Exception $e) {
     if ($e->getMessage() == 'Unauthorised') {
-        alert('warning', '<strong>Error:</strong> Connected successfully but could not authenticate! Check public and private keys.</pre>');
+        alert('warning', '<strong>Error:</strong> Connected successfully but could not authenticate! Check public and private keys.');
         redirect('/nodes');
     }
-    alert('danger', '<strong>Error:</strong> '.str_replace('Could not unserialize response:', '', '<pre>'.trim(htmlentities($e->getMessage()))).'</pre>');
+    alert('danger', '<strong>Error:</strong> '.str_replace('Could not unserialize response:', '', trim(htmlentities($e->getMessage()))));
     redirect('/nodes');
 }
 
@@ -90,113 +90,15 @@ ob_start() ?>
 <script src="/js/jquery.simplefilebrowser.js"></script>
 <script>
 $(function(){
-    
-    var textarea = $('textarea[name="source"]').hide();
-            var editor = ace.edit("source");
-            editor.getSession().setUseWorker(false);
-            editor.setTheme("ace/theme/eclipse");
-            editor.getSession().setMode("ace/mode/php");
-
-            editor.getSession().setValue(textarea.val());
-            editor.getSession().on('change', function() {
-                textarea.val(editor.getSession().getValue());
-            });
-
-	        $("#example1").simpleFileBrowser({
-                    json: <?= $tasks->files('/var/www/html') ?>,
-                    path: '/',
-                    view: 'details',
-                    select: false,
-                    breadcrumbs: true,
-                    onSelect: function (obj, file, folder, type) {
-                        $('button.new-file').data('folder', folder);
-                    },
-                    onOpen: function (obj, file, folder, type) {
-                        if (type=='file') {
-                            $('.remove-file').removeClass('hidden').data('file', folder+'/'+file);
-                            $('.save-file').removeClass('hidden').data('file', folder+'/'+file);
-                            $('.new-file').data('file', folder+'/'+file);
-
-                            if (!folder) {
-                                folder = '';
-                            } else {}
-
-                            loadFile(folder+'/'+file);
-                        } else {
-                            $('.remove-file').addClass('hidden');
-                            $('.save-file').addClass('hidden');
-                            $('button.new-file').data('folder', folder);
-                        }
-                        $('.sfbBreadCrumbs li').first().html('/var/www/html');
-                    }
-                });
-                
-                function loadFile(path) {
-                    $.get('http://phive.free.lxd.systems/nodes/file/<?= (int) $vars['route']['id']?>'+path, function(data, status){
-                        textarea.val(data);
-                        editor.getSession().setValue(data);
-                        $("#select").html(data);
-                    });
-                }
-
-                $("input[name='path']").on("change", function () {
-                    $input = $(this);
-
-                    $("#example1").simpleFileBrowser("chgOption", {
-                        path: $input.val()
-                    });
-                    $("#example1").simpleFileBrowser("redraw");
-                });
-
-    $(document).ready(function() {
-        load.script('/js/module/nodes.js', function() {
-            nodes.init();
+    load.script('/js/module/nodes.js', function() {
+        nodes.init({
+            route_id: '<?= (int) $vars['route']['id']?>',
+            files: <?= $tasks->files('/var/www/html') ?>
         });
-        
-        
-        $('button.remove-file').on('click', function(e){
-            e.preventDefault();
-            if (!$(this).data('file')) {
-                $(this).data('file', '');
-            }
-            $.get('http://phive.free.lxd.systems/nodes/file/<?= (int) $vars['route']['id']?>'+$(this).data('file')+'?del=1', function(data, status) {
-                window.location = '/nodes/view/<?= (int) $vars['route']['id']?>';
-            });
-        });
-        
-        $('button.save-file').on('click', function(e){
-            e.preventDefault();
-            if (!$(this).data('file')) {
-                $(this).data('file', '');
-            }
-            $.post('http://phive.free.lxd.systems/nodes/file/<?= (int) $vars['route']['id']?>'+$(this).data('file')+'?save=1', {data: editor.getSession().getValue() }, function(data, status) {
-                //window.location = '/nodes/view/<?= (int) $vars['route']['id']?>';
-            });
-        });
-        
-        $('button.new-file').on('click', function(e){
-            e.preventDefault();
-            if (!$(this).data('folder')) {
-                $(this).data('folder', '');
-            }
-            var new_file = $(this).data('folder')+'/'+$('#new-file-name').val();
-
-            $.get('http://phive.free.lxd.systems/nodes/file/<?= (int) $vars['route']['id']?>'+new_file, function(data, status) {
-                window.location = '/nodes/view/<?= (int) $vars['route']['id']?>';
-            });
-        });
-        
-        $('.sfbBreadCrumbs').first('li').html('/var/www/html');
-        
-        
     });
 });
 </script>
 <?php $vars['js'] .= ob_get_clean() ?>
-
-<style>
-.sfb{overflow-y:auto;font-size:12px}.sfb ul{list-style:none}.sfb .sfbBreadCrumbs{background:#f5f5f5;margin:0!important;padding:5px 10px}.sfb .sfbBreadCrumbs li{display:inline-block;cursor:pointer;margin:0}.sfb .sfbBreadCrumbs li:before{content:"/";color:#bbb;padding:0 10px}.sfb .sfbBreadCrumbs li:first-child:before{content:"";padding:0}.sfb .sfbContent ul{padding:0;margin:0}.sfb .sfbContent li{cursor:pointer;margin:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.sfb .sfbContent li.selected{background:#eee}.sfb .sfbContent.icon i{display:block}.sfb .sfbContent.icon li{display:inline-block;text-align:center}.sfb .sfbContent.icon span{width:100%;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;word-wrap:break-word;line-height:1.2}.sfb .sfbContent.details li{padding:5px 10px;display:block;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word}.sfb .sfbContent.details span{padding-left:10px}.sfb.x32 .sfbContent.icon li{width:80px;height:87px;padding:10px}.sfb.x32 .sfbContent.icon i{font-size:32px}.sfb.x32 .sfbContent.icon span{margin-top:5px;height:30px;font-size:12px}.sfb.x22 .sfbContent.icon{padding:5px}.sfb.x22 .sfbContent.icon li{width:70px;height:63px;padding:5px}.sfb.x22 .sfbContent.icon i{font-size:22px}.sfb.x22 .sfbContent.icon span{margin-top:5px;height:25px;font-size:11px}.sfb.x16 .sfbContent.icon{padding:5px}.sfb.x16 .sfbContent.icon li{width:64px;height:55px;padding:5px}.sfb.x16 .sfbContent.icon i{font-size:16px}.sfb.x16 .sfbContent.icon span{margin-top:5px;height:25px;font-size:11px}.sfb .sfbContent.details i{font-size:16px;diplay:inline-block;vertical-align:middle}
-</style>
 
 <div class="row">
     <div class="col-lg-12">
@@ -244,7 +146,6 @@ $(function(){
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Source Size (bytes)</th>
-                                <th>Checksum</th>
                                 <th>Created</th>
                                 <th>Updated</th>
                                 <th>Tasks</th>
@@ -258,9 +159,8 @@ $(function(){
                                 <td><a href="/tasks/view/<?= $row->id ?>"><?= $row->name ?></a></td>
                                 <td><?= $row->type ?></td>
                                 <td><?= strlen($row->source) ?></td>
-                                <td><pre><?= $row->checksum ?></pre></td>
-                                <td><?= $row->created ?></td>
-                                <td><?= $row->updated ?></td>
+                                <td><?= date_create($row->created)->format('F jS Y, g:ia') ?></td>
+                                <td><?= date_create($row->updated)->format('F jS Y, g:ia') ?></td>
                                 <td><?= $tasks->getTasksLogCount($row->id) ?></td>
                                 <td>
                                     <div class="btn-group" style="display:flex">
@@ -310,7 +210,7 @@ $(function(){
                         </div>
                   
 
-                    <div id="example1" style="width:100%"></div>
+                    <div id="fileList" style="width:100%"></div>
                     <!--<div id="select"></div>-->
                     <!--<p class="sep">&nbsp;</p>-->
                     <!--<div class="row">-->
@@ -609,7 +509,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Hostname<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Hostname<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
                             
@@ -620,7 +520,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Uname<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Uname<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
                             
@@ -631,7 +531,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Uptime<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Uptime<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
 
@@ -642,7 +542,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Ping<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Ping<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?>ms</td>
                             </tr>
 
@@ -653,7 +553,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Distro<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Distro<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
                             
@@ -664,7 +564,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Arch<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Arch<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
 
@@ -675,7 +575,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Load<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Load<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><?= $result ?></td>
                             </tr>
                             
@@ -686,7 +586,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>CPU Usage<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td><td>
+                                <td>CPU Usage<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td><td>
                                     <div class="progress" data-placement="bottom" data-toggle="tooltip" href="#">
                                         <div class="progress-bar progress-bar-danger" style="width: <?= $result ?>%">
                                             <?= $result ?>%
@@ -705,7 +605,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td class="col-md-2">Memory stats<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td class="col-md-2">Memory stats<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td class="col-md-10">
                                     <?php
                                     $mem_used = $result['used'];
@@ -733,7 +633,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td class="col-md-2">Diskspace<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td class="col-md-2">Diskspace<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td class="col-md-10">
                                     <div class="progress" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Total disk space: ">
                                         <div class="progress-bar progress-bar-danger" style="width: <?= 100-$result ?>%">
@@ -753,7 +653,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Total Memory<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Total Memory<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -764,7 +664,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Machine ID<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Machine ID<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -775,7 +675,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Netstat<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Netstat<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -786,7 +686,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>System Logins<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>System Logins<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
                             
@@ -797,7 +697,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Process Tree<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Process Tree<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -808,7 +708,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Top<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Top<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -819,7 +719,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>CPU Information<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>CPU Information<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 
@@ -830,7 +730,7 @@ $(function(){
                             $result     = (!empty($taskResult['result']) ? json_decode($taskResult['result'], true)[$key] : '-');
                             ?>
                             <tr>
-                                <td>Disks<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.$taskResult['run_last'].'</small>' : '') ?></td>
+                                <td>Disks<?= (!empty($taskResult['run_last']) ? '<br><small class="text-muted">'.(empty($taskResult['run_last']) ? '-' : \utilphp\util::human_time_diff(strtotime($taskResult['run_last']))).'</small>' : '') ?></td>
                                 <td><pre><?= $result ?></pre></td>
                             </tr>
 

@@ -19,7 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      */
     if (isset($_POST['data']) && 
         isset($_POST['token']) && 
-        isset($_POST['public_key'])) {
+        isset($_POST['public_key'])
+    ) {
+        if ($config['plinker']['enabled'] === false) {
+            exit('Node not active.');
+        }
 
         // test its encrypted
         file_put_contents('../tmp/encryption-proof.txt', print_r($_POST, true));
@@ -38,6 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  * Go App!
  */
 session_start();
+
+// config webui credentials set - go to sign in
+if (!empty($config['webui']['user']) && !empty($config['webui']['pass'])) {
+    if (empty($_SESSION['user'])) {
+        $_GET['route'] = 'sign-in';
+    }
+}
 
 // Functions
 
@@ -94,14 +105,13 @@ $vars = [
 // Run route/pages and render into template
 
 echo file_exists('./pages/'.$vars['route']['view'].'.php') ? view(
-    $template,
+    $vars['template'],
     $vars+[
         'body' => view('./pages/'.$vars['route']['view'].'.php', $vars)
     ]
 ) : view(
-    $template,
+    $vars['template'],
     $vars+[
         'body' => view('./pages/not_found.php')
     ]
 );
-// Line 100!

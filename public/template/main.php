@@ -12,6 +12,7 @@
             if ($vars['route']['view'] == 'tasks'): ?> - Tasks<?php endif;
             if ($vars['route']['view'] == 'nodes'): ?> - Nodes<?php endif;
             if ($vars['route']['view'] == 'settings'): ?> - Settings<?php endif;
+            if ($vars['route']['view'] == 'sign-in'): ?> - Sign In<?php endif;
         ?></title>
 
         <link rel="stylesheet" href="/dist/vendors.min.css">
@@ -19,44 +20,23 @@
         <?= $vars['css'] ?>
     </head>
     <body>
-        
-        <a href="https://github.com/lcherone/PlinkerUI">
-            <img style="position: absolute; top: 0; right: 0; border: 0;z-index:99999" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
-        </a>
-        
-        <div id="wrapper">
+
+        <div id="<?= (!empty($_SESSION['user']) ? 'wrapper' : '') ?>">
+            
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
+                    <?php if (!empty($_SESSION['user'])): ?>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <?php endif ?>
                     <a class="navbar-brand" href="/" class="ajax-link">PlinkerUI</a>
                 </div>
-                <!-- Top Menu Items -->
-                <!--<ul class="nav navbar-right top-nav">-->
-                <!--    <li class="dropdown">-->
-                <!--        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>-->
-                <!--        <ul class="dropdown-menu">-->
-                <!--            <li>-->
-                <!--                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>-->
-                <!--            </li>-->
-                <!--            <li>-->
-                <!--                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>-->
-                <!--            </li>-->
-                <!--            <li>-->
-                <!--                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>-->
-                <!--            </li>-->
-                <!--            <li class="divider"></li>-->
-                <!--            <li>-->
-                <!--                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>-->
-                <!--            </li>-->
-                <!--        </ul>-->
-                <!--    </li>-->
-                <!--</ul>-->
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+
+                <?php if (!empty($_SESSION['user'])): ?>
                 <div class="collapse navbar-collapse navbar-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li<?= ($vars['route']['view'] == 'index') ? ' class="active"' : '' ?>>
@@ -71,9 +51,9 @@
                         <li<?= ($vars['route']['view'] == 'settings') ? ' class="active"' : '' ?>>
                             <a href="/settings" class="ajax-link"><i class="fa fa-fw fa-cogs"></i> Settings</a>
                         </li>
-                        <!--<li>-->
-                        <!--    <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>-->
-                        <!--</li>-->
+                        <li>
+                            <a href="/sign-out"><i class="fa fa-fw fa-sign-out"></i> Sign Out</a>
+                        </li>
                         <!--<li>-->
                         <!--    <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>-->
                         <!--</li>-->
@@ -105,6 +85,7 @@
                         <!--</li>-->
                     </ul>
                 </div>
+                <?php endif ?>
             </nav>
     
             <div id="page-wrapper">

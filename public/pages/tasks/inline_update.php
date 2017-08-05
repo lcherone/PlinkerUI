@@ -79,7 +79,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         } elseif ($_POST['name'] == 'sleep' && $_POST['value'] > 31557600) {
             exit('{"success": false, "msg": "Invalid sleep value, must be less than 31557600"}');
         } elseif ($_POST['name'] == 'sleep') {
-            $task->run_next = date_create($task->run_last)->modify("+".(int) $_POST['value']." seconds")->format('Y-m-d h:i:s');
+            $task->run_next = date_create($task->run_last)->modify("+".(int) $_POST['value']." seconds")->format('Y-m-d H:i:s');
         }
         
         // update
