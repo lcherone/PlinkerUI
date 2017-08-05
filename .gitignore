@@ -2,5 +2,6 @@
 vendor/
 composer.lock
 database.db
+config.php
 public/template/dist/*
 tmp/
