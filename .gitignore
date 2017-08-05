@@ -3,5 +3,6 @@ vendor/
 composer.lock
 database.db
 config.php
+tasks/pids/Daemon.pid
 public/template/dist/*
 tmp/
