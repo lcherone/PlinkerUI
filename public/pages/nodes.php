@@ -37,7 +37,13 @@ if (empty($nodes)) {
         'private_key' => $vars['plinker']['private_key'],
         'enabled' => $vars['plinker']['enabled'],
         'encrypted' => $vars['plinker']['encrypted'],
-        'config' => json_encode($vars)
+        'config' => json_encode([
+            'plinker' => $vars['plinker'],
+            'database' => $vars['database'],
+            'debug' => $vars['debug'],
+            'sleep_time' => $vars['sleep_time'],
+            'webui' => $vars['webui']
+        ])
     ]);
     
     $nodes = $vars['db']->findAll('node');

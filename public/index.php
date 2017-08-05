@@ -78,10 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         isset($_POST['token']) && 
         isset($_POST['public_key'])
     ) {
-        if ($config['plinker']['enabled'] === false) {
-            exit('Node not enabled.');
-        }
-
         // test its encrypted
         file_put_contents('../tmp/encryption-proof.txt', print_r($_POST, true));
 

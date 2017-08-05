@@ -2,6 +2,8 @@
 
 $node =  $vars['db']->findOne('node', 'id = ?', [(int) $vars['route']['id']]);
 
+$_SESSION['node'] = $node->id;
+
 if (empty($node)) {
     alert('danger', '<strong>Error:</strong> Node not found.');
     redirect('/nodes');
@@ -14,51 +16,74 @@ $form = [
         'peer'        => (isset($_POST['peer'])        ? trim($_POST['peer'])        : $node->peer),
         'public_key'  => (isset($_POST['public_key'])  ? trim($_POST['public_key'])  : $node->public_key),
         'private_key' => (isset($_POST['private_key']) ? trim($_POST['private_key']) : $node->private_key),
-        'encrypted'   => (isset($_POST['encrypted'])   ? 1 : 0),
-        'enabled'     => (isset($_POST['enabled'])     ? 1 : 0)
+        'encrypted'   => $node->encrypted,
+        'enabled'     => $node->enabled
     ]
 ];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // // type
-    // if (!in_array($form['values']['type'], ['php-closure', 'php-raw', 'bash'])) {
-    //     $form['errors']['type'] = 'Invalid task source type, choose from the list.';
-    // }
+    $form['values']['encrypted'] = (isset($_POST['encrypted']));
+    $form['values']['enabled'] = (isset($_POST['enabled']));
+    
+    // name
+    if (empty($form['values']['name'])) {
+        $form['errors']['name'] = 'Name is a required field.';
+    }
+    
+    // peer
+    if (empty($form['values']['peer'])) {
+        $form['errors']['peer'] = 'Endpoint URL is a required field.';
+    }
 
-    // // name
-    // if (empty($form['values']['name'])) {
-    //     $form['errors']['name'] = 'Name is a required field.';
-    // }
-    
-    // // description
-    // if (empty($form['values']['description'])) {
-    //     $form['errors']['description'] = 'Description is a required field.';
-    // } else {
-    //     $form['values']['description'] = strip_tags($form['values']['description']);
-    // }
-    
-    // // sleep
-    // if (!empty($form['values']['repeats'])) {
-    //     if ($form['values']['sleep'] < 1) {
-    //         $form['errors']['sleep'] = 'Min sleep value is 1 second.';
-            
-    //     } elseif ($form['values']['sleep'] > 31557600) {
-    //         $form['errors']['sleep'] = 'Max sleep value is 31557600 seconds. (around 1 year).';
-    //     }
-    // } else {
-    //     $form['values']['sleep'] = 0;
-    // }
-    
-    // // source
-    // if (empty($form['values']['source'])) {
-    //     $form['errors']['source'] = 'Source is a required field.';
-    // }
-    
     // all is good
     if (empty($form['errors'])) {
         
-
+        try {
+            $peer = new Plinker\Core\Client(
+                $form['values']['peer'],
+                'Peer\Manager',
+                hash('sha256', gmdate('h').$form['values']['public_key']),
+                hash('sha256', gmdate('h').$form['values']['private_key']),
+                json_decode($node->config, true),
+                $node->encrypted // enable encryption [default: true]
+            );
+            
+            $config = $peer->config();
+        } catch (\Exception $e) {
+            $error = preg_replace("/cURL error (\d+):(.*)/", "$2", $e->getMessage());
+            
+            alert('danger', '<strong>Error:</strong> '.$error.'.');
+            redirect('/nodes/edit/'.$node->id);
+        }
+        
+        // update config
+        $config = [
+            'plinker' => [
+                'peer' => $form['values']['peer'],
+                'tracker' => $config['plinker']['tracker'],
+                'public_key'  => $form['values']['public_key'],
+                'private_key' => $form['values']['private_key'],
+                'enabled' => $form['values']['enabled'],
+                'encrypted' => $form['values']['encrypted']
+            ],
+            'database' => [
+                'dsn' => $config['database']['dsn'],
+                'username' => $config['database']['username'],
+                'password' => $config['database']['password'],
+                'freeze' => $config['database']['freeze'],
+                'debug' => $config['database']['debug']
+            ],
+            'debug' => $config['debug'],
+            'sleep_time' => $config['sleep_time'],
+            'webui' => [
+                'user' => $config['webui']['user'],
+                'pass' => $config['webui']['pass']
+            ]
+        ];
+        
+        $peer->config($config);
+        
         $node->import([
             'node',
             'name' => $form['values']['name'],
@@ -67,30 +92,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'private_key' => $form['values']['private_key'],
             'enabled' => $form['values']['enabled'],
             'encrypted' => $form['values']['encrypted'],
-            'config' => json_encode($vars)
+            'config' => json_encode($config)
         ]);
         
         $vars['db']->store($node);
 
-        // , true).'</pre>';
-
         alert('success', 'Node updated.');
         redirect('/nodes');
     }
-}
-
-/**
- * Javascript
- */
-ob_start() ?>
-<script>
-    $(document).ready(function() {
-        load.script('/js/module/tasks.js', function() {
-            nodes.init();
-        });
-    });
-</script>
-<?php $vars['js'] .= ob_get_clean() ?>
+} ?>
 
 <div class="row">
     <div class="col-lg-12">
@@ -187,3 +197,13 @@ ob_start() ?>
         </div>
     </div>
 </div>
+
+<?php ob_start() ?>
+<script>
+    $(document).ready(function() {
+        load.script('/js/module/tasks.js', function() {
+            nodes.init();
+        });
+    });
+</script>
+<?php $vars['js'] .= ob_get_clean() ?>
