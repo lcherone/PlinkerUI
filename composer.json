@@ -22,7 +22,7 @@
         "plinker/system": ">=v1.0.1",
         "plinker/lxc": ">=v0.1",
         "plinker/peer": "dev-master",
-        "plinker/tasks": "dev-master",
+        "plinker/tasks": "v0.6.14",
         "gabordemooij/redbean": ">=4.2",
         "monolog/monolog": "^1.19",
         "league/climate": "@dev",
